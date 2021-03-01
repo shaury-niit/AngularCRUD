@@ -6,5 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Coforge-App';
+  title = 'Welcome Coforge-App';
+
+  today = new Date();
+
+  //define one more property
+  clickMessage:string="status";
+
+  onClickMe(){
+    console.log("Event fired---!");
+    this.clickMessage = "Training is Active";
+  }
+
+
 }

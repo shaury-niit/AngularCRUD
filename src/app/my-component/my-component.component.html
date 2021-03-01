@@ -1,0 +1,58 @@
+<script src="extensions/editable/bootstrap-table-editable.js"></script>
+<form ngForm>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" required [(ngModel)]="model.name" name="name">
+    </div>
+
+    <div class="form-group">
+        <label for="age">Age</label>
+        <input type="number" class="form-control" id="age" [(ngModel)]="model.age" name="age">
+    </div>
+
+    <button type="submit" class="btn btn-primary submitBtn" (click)="createCustomer()">Submit</button>
+
+</form>
+
+
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col"></th>                
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let cust of custArray; let idx=index;' class="customerLi">
+                <td [class]="returnIndex(idx)">{{cust.name | uppercase}}</td>
+                <td [class]="returnIndex(idx)"> {{cust.age | testPipe:2}}</td>
+                <td><span class="btnContainer"><button class="btn btn-primary"
+                    [class]="returnEditIndex(idx)" (click)="editInput(idx)"
+                    >Edit</button></span>
+                <span class="btnContainer"><button class="btn btn-primary"
+                        (click)="deleteCustomer(idx)">Delete</button></span>
+                        </td>
+                </tr>
+        </tbody>
+    </table>
+    <!-- <ol>
+        <li appHighlight color="white" *ngFor='let cust of custArray; let idx=index;' class="customerLi">
+            {{cust.name | uppercase}} <b>||</b> {{cust.age | testPipe:2}}
+            <span class="btnContainer"><button class="btn btn-primary">Edit</button></span>
+            <span class="btnContainer"><button class="btn btn-primary"
+                    (click)="deleteCustomer(idx)">Delete</button></span>
+        </li>
+    </ol> -->
+</div>
+<!-- <button type="submit" (click)="getUser()" class="btn btn-danger">Submit</button> -->
+<div>
+    <ol>
+        <li appHighlight color="white" *ngFor='let user of getData' class="customerLi">
+            {{user.first_name}} <b>||</b> {{user.email}}
+
+        </li>
+    </ol>
+</div>
