@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Customer} from './customer'
-import {NGXLogger} from 'ngx-logger';
-import {MyServiceService } from '../services/my-service.service';
+import { Customer } from './customer'
+import { NGXLogger } from 'ngx-logger';
+import { MyServiceService } from '../services/my-service.service';
 
 
 @Component({
@@ -13,16 +13,19 @@ export class MyComponentComponent implements OnInit {
 
   //declare the array and model here
 
-  custArray:Array<Customer> = new Array();
+  custArray: Array<Customer> = new Array();
 
   // declare one more model variable here
 
-  model = new Customer('',0);
-  
-  getData:any;
+  model = new Customer('', 0);
 
-  constructor(private _httpService:MyServiceService ,private logger:NGXLogger) { 
-    this.logger.debug("in constructor method")        
+  editIndex: any;
+
+  getData: any;
+
+  constructor(private _httpService: MyServiceService, private logger: NGXLogger) {
+    this.logger.debug("in constructor method")
+    
   }
 
   ngOnInit(): void {
@@ -30,8 +33,8 @@ export class MyComponentComponent implements OnInit {
 
   //write a method or event to create Customer
 
-  createCustomer(){
-    try{
+  createCustomer() {
+    try {
       // console.log("customer creation here--->");
       this.logger.info("customer creation here");
       //add customer in customer array using push
@@ -41,58 +44,51 @@ export class MyComponentComponent implements OnInit {
       // console.log(JSON.stringify(this.custArray))
       this.logger.info(JSON.stringify(this.custArray))
     }
-    catch(err){
+    catch (err) {
       // console.log("error to create the customer-->", err);
       this.logger.error("error to create the customer-->", err)
     }
   }
 
-  returnIndex(idx:number):string{
-    return "customer"+idx
+  returnIndex(idx: number): string {
+    return "customer" + idx
   }
 
-  returnEditIndex(idx:number):string{
-    return "editCustomer"+idx
+  returnEditIndex(idx: number): string {
+    return "editCustomer" + idx
   }
 
-  editInput(idx:number){
-    let name = document.getElementsByClassName("customer"+idx)[0];
-    let age = document.getElementsByClassName("customer"+idx)[1];
-    document.getElementsByClassName("editCustomer"+idx)[0].setAttribute("disabled", "true");
-    let array = this.custArray;
-    name.innerHTML=`<input type="text" value=${name.innerHTML}>`;
-    age.innerHTML=`<input type="number" value=${age.innerHTML}>`;    
-    [name,age].forEach(item=>{
-      item.addEventListener('blur', function(){      
-      array[idx].name = name.innerHTML;
-      array[idx].age = parseInt(age.innerHTML);
-    document.getElementsByClassName("editCustomer"+idx)[0].removeAttribute("disabled");
-    } ) }) ;
+  editInput(idx: number) {
+    this.model.name = document.getElementsByClassName("customer" + idx)[0].innerHTML;
+    this.model.age = parseInt(document.getElementsByClassName("customer" + idx)[1].innerHTML);
+    this.editIndex = idx;
     
+  }
+
+  updateCustomer(){
+    let array = this.custArray;
+    array[this.editIndex].name = this.model.name;
+    array[this.editIndex].age = this.model.age;
     this.custArray = array;
   }
 
-  getUser(){
 
-    this._httpService.getUserDetails().subscribe((res)=>{
-             console.log(res);
-             this.getData = res;
-  
-  });
+  getUser() {
+
+    this._httpService.getUserDetails().subscribe((res) => {
+      console.log(res);
+      this.getData = res;
+
+    });
   }
-  
-// update operation on Customer array
 
-// public updateCustomer(idx:number):Array<Customer>{
 
-// }
+  // //Delete operation on Customer array    
 
-// //Delete operation on Customer array    
-
-public deleteCustomer(idx:number):Array<Customer>{  
-    this.custArray.splice(idx,1);
+  public deleteCustomer(idx: number): Array<Customer> {
+    this.custArray.splice(idx, 1);
     return this.custArray;
-}
+  }
 
 }
 

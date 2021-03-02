@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger'; 
 import { HttpClientModule } from '@angular/common/http';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +17,7 @@ import { HighlightDirective } from './my-component/highlight.directive';
   ],
   imports: [ // all internal and external module wil be part of import  
     BrowserModule,
+    NgbModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,

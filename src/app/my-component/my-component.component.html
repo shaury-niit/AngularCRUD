@@ -11,6 +11,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary submitBtn" (click)="createCustomer()">Submit</button>
+    <button type="submit" class="btn btn-primary submitBtn" (click)="updateCustomer()">Update</button>
 
 </form>
 
@@ -29,25 +30,23 @@
             <tr *ngFor='let cust of custArray; let idx=index;' class="customerLi">
                 <td [class]="returnIndex(idx)">{{cust.name | uppercase}}</td>
                 <td [class]="returnIndex(idx)"> {{cust.age | testPipe:2}}</td>
-                <td><span class="btnContainer"><button class="btn btn-primary"
+                <td>
+                    <span class="btnContainer"><button class="btn btn-primary"
                     [class]="returnEditIndex(idx)" (click)="editInput(idx)"
-                    >Edit</button></span>
+                    >Edit</button>
+                </span>
+
+                <!-- <button class="btn btn-lg btn-outline-primary" (click)="open(mymodal)">Edit</button> -->
+
                 <span class="btnContainer"><button class="btn btn-primary"
                         (click)="deleteCustomer(idx)">Delete</button></span>
                         </td>
                 </tr>
         </tbody>
     </table>
-    <!-- <ol>
-        <li appHighlight color="white" *ngFor='let cust of custArray; let idx=index;' class="customerLi">
-            {{cust.name | uppercase}} <b>||</b> {{cust.age | testPipe:2}}
-            <span class="btnContainer"><button class="btn btn-primary">Edit</button></span>
-            <span class="btnContainer"><button class="btn btn-primary"
-                    (click)="deleteCustomer(idx)">Delete</button></span>
-        </li>
-    </ol> -->
+   
 </div>
-<!-- <button type="submit" (click)="getUser()" class="btn btn-danger">Submit</button> -->
+
 <div>
     <ol>
         <li appHighlight color="white" *ngFor='let user of getData' class="customerLi">
@@ -56,3 +55,20 @@
         </li>
     </ol>
 </div>
+
+
+<!-- <ng-template #mymodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Edit User</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Name:<input type="text">
+      Age:<input type="number">
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+    </div>
+  </ng-template> -->
